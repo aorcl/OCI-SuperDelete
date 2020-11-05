@@ -22,6 +22,7 @@ from ocimodules.Nosql import *
 from ocimodules.datacatalog import *
 from ocimodules.DigitalAssistant import *
 from ocimodules.APIGateway import *
+from ocimodules.Analytics import *
 import logging
 
 ########## Configuration ####################
@@ -34,10 +35,11 @@ DeleteCompartmentOCID = ""
 
 # Search for resources in regions, this is an Array, so you can specify multiple regions:
 # If no regions specified, it will be all subscribed regions.
-regions = ["eu-frankfurt-1", "eu-amsterdam-1"]
+# regions = ["eu-frankfurt-1", "eu-amsterdam-1"]
+regions = []
 
 # Specify your home region
-homeregion = "eu-frankfurt-1"
+homeregion = "us-ashburn-1"
 #############################################
 
 debug = False
@@ -100,6 +102,7 @@ if confirm == "yes":
         DeleteWAFs(config,processCompartments)
         DeleteHTTPHealthchecks(config, processCompartments)
         DeletePINGHealthchecks(config, processCompartments)
+        DeleteTrafficSteeringsAttachments(config, processCompartments)
         DeleteTrafficSteerings(config, processCompartments)
         DeleteZones(config, processCompartments)
 
@@ -147,6 +150,9 @@ if confirm == "yes":
 
         print("\n--[ Deleting Digital Assistants ]--")
         DeleteDigitalAssistant(config, processCompartments)
+
+        print("\n--[ Deleting Analytics ]--")
+        DeleteAnalytics(config, processCompartments)
 
         print ("\n--[ Deleting Resource Manager Stacks ]--")
         DeleteStacks(config, processCompartments)
